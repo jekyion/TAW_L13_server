@@ -1,7 +1,9 @@
 import userEndpoint from './user.endpoint';
-
-const routes = function (router) {
+import postEndpoint from './post.endpoint';
+const routes = function (router,config) {
     userEndpoint(router);
+    postEndpoint(router);
 };
 
 export default routes;
+

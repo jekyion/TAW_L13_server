@@ -1,12 +1,28 @@
 import userManager from './user.manager';
+import postManager from './post.manager'
 
 
-function getter(manager, request) {
-  return function () {
-    return manager.create(request, this);
-  };
+
+
+function getContext(request) {
+    return { user: request && request.user };
 }
 
+function getter(manager, request) {
+    return function () {
+        return manager.create(getContext(request), this);
+    };
+}
+
+const createBusinessContainer = (request, config) => {
+
+    return {
+        getPostManager: getter(postManager, request)
+    };
+};
+
+
 export default {
+    createBusinessContainer,
     getUserManager: getter(userManager)
 };
